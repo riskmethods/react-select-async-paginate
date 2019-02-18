@@ -105,7 +105,7 @@ function (_Component) {
                 optionsCache = _this.state.optionsCache;
 
                 if (optionsCache[search]) {
-                  _context2.next = 6;
+                  _context2.next = 8;
                   break;
                 }
 
@@ -113,6 +113,18 @@ function (_Component) {
                 return _this.loadOptions();
 
               case 6:
+                _context2.next = 10;
+                break;
+
+              case 8:
+                _context2.next = 10;
+                return _this.setState(function (prevState) {
+                  return _objectSpread({}, prevState, {
+                    loading: false
+                  });
+                });
+
+              case 10:
               case "end":
                 return _context2.stop();
             }
@@ -130,16 +142,16 @@ function (_Component) {
     _asyncToGenerator(
     /*#__PURE__*/
     _regeneratorRuntime.mark(function _callee3() {
-      var _this$state, search, optionsCache, currentOptions;
+      var _this$state, loading, search, optionsCache, currentOptions;
 
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _this$state = _this.state, search = _this$state.search, optionsCache = _this$state.optionsCache;
+              _this$state = _this.state, loading = _this$state.loading, search = _this$state.search, optionsCache = _this$state.optionsCache;
               currentOptions = optionsCache[search];
 
-              if (!currentOptions) {
+              if (!(!loading && currentOptions)) {
                 _context3.next = 5;
                 break;
               }

@@ -141,18 +141,24 @@ class AsyncPaginate extends Component {
 
     if (!optionsCache[search]) {
       await this.loadOptions();
+    } else {
+      await this.setState((prevState) => ({
+        ...prevState,
+        loading: false,
+      }));
     }
   }
 
   handleScrolledToBottom = async () => {
     const {
+      loading,
       search,
       optionsCache,
     } = this.state;
 
     const currentOptions = optionsCache[search];
 
-    if (currentOptions) {
+    if (!loading && currentOptions) {
       await this.loadOptions();
     }
   }
