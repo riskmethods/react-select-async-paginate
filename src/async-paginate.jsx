@@ -166,6 +166,10 @@ class AsyncPaginate extends Component {
     const currentOptions = optionsCache[search] || this.getInitialCache();
 
     if (currentOptions.isLoading || !currentOptions.hasMore) {
+      await this.setState((prevState) => ({
+        ...prevState,
+        loading: false,
+      }));
       return;
     }
 

@@ -212,43 +212,51 @@ function (_Component) {
                 currentOptions = optionsCache[search] || this.getInitialCache();
 
                 if (!(currentOptions.isLoading || !currentOptions.hasMore)) {
-                  _context4.next = 4;
+                  _context4.next = 6;
                   break;
                 }
 
+                _context4.next = 5;
+                return this.setState(function (prevState) {
+                  return _objectSpread({}, prevState, {
+                    loading: false
+                  });
+                });
+
+              case 5:
                 return _context4.abrupt("return");
 
-              case 4:
-                _context4.next = 6;
+              case 6:
+                _context4.next = 8;
                 return this.setState(function (prevState) {
                   return _objectSpread({}, prevState, {
                     loading: true
                   });
                 });
 
-              case 6:
+              case 8:
                 debounceTimeout = this.props.debounceTimeout;
 
                 if (!(search.length > 0 && debounceTimeout > 0)) {
-                  _context4.next = 13;
+                  _context4.next = 15;
                   break;
                 }
 
-                _context4.next = 10;
+                _context4.next = 12;
                 return sleep(debounceTimeout);
 
-              case 10:
+              case 12:
                 newSearch = this.state.search;
 
                 if (!(search !== newSearch)) {
-                  _context4.next = 13;
+                  _context4.next = 15;
                   break;
                 }
 
                 return _context4.abrupt("return");
 
-              case 13:
-                _context4.next = 15;
+              case 15:
+                _context4.next = 17;
                 return this.setState(function (prevState) {
                   return {
                     search: search,
@@ -258,33 +266,33 @@ function (_Component) {
                   };
                 });
 
-              case 15:
-                _context4.prev = 15;
+              case 17:
+                _context4.prev = 17;
                 _loadOptions2 = this.props.loadOptions;
-                _context4.next = 19;
+                _context4.next = 21;
                 return _loadOptions2(search, currentOptions.options, currentOptions.additional);
 
-              case 19:
+              case 21:
                 response = _context4.sent;
                 options = response.options;
                 hasMore = response.hasMore;
                 additional = response.additional;
                 hasError = false;
-                _context4.next = 29;
+                _context4.next = 31;
                 break;
 
-              case 26:
-                _context4.prev = 26;
-                _context4.t0 = _context4["catch"](15);
+              case 28:
+                _context4.prev = 28;
+                _context4.t0 = _context4["catch"](17);
                 hasError = true;
 
-              case 29:
+              case 31:
                 if (!hasError) {
-                  _context4.next = 34;
+                  _context4.next = 36;
                   break;
                 }
 
-                _context4.next = 32;
+                _context4.next = 34;
                 return this.setState(function (prevState) {
                   return {
                     loading: false,
@@ -294,14 +302,14 @@ function (_Component) {
                   };
                 });
 
-              case 32:
-                _context4.next = 38;
+              case 34:
+                _context4.next = 40;
                 break;
 
-              case 34:
+              case 36:
                 newAdditional = typeof additional === 'undefined' ? null : additional;
                 reduceOptions = this.props.reduceOptions;
-                _context4.next = 38;
+                _context4.next = 40;
                 return this.setState(function (prevState) {
                   return {
                     loading: false,
@@ -315,12 +323,12 @@ function (_Component) {
                   };
                 });
 
-              case 38:
+              case 40:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[15, 26]]);
+        }, _callee4, this, [[17, 28]]);
       }));
 
       function loadOptions() {
