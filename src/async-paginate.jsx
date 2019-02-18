@@ -112,6 +112,7 @@ class AsyncPaginate extends Component {
     this.setState({
       search: '',
       menuIsOpen: false,
+      loading: false,
     });
   }
 

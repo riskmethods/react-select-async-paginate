@@ -46,7 +46,8 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onMenuClose", function () {
       _this.setState({
         search: '',
-        menuIsOpen: false
+        menuIsOpen: false,
+        loading: false
       });
     });
 
