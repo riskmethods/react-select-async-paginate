@@ -75,6 +75,7 @@ class AsyncPaginate extends Component {
       : {};
 
     this.state = {
+      loading: false,
       search: '',
       optionsCache: initialOptionsCache,
       menuIsOpen: false,
@@ -168,21 +169,15 @@ class AsyncPaginate extends Component {
     }
 
     await this.setState((prevState) => ({
-      search,
-      optionsCache: {
-        ...prevState.optionsCache,
-        [search]: {
-          ...currentOptions,
-          isLoading: true,
-        },
-      },
+      ...prevState,
+      loading: true,
     }));
 
     const {
       debounceTimeout,
     } = this.props;
 
-    if (debounceTimeout > 0) {
+    if (search.length > 0 && debounceTimeout > 0) {
       await sleep(debounceTimeout);
 
       const {
@@ -193,6 +188,17 @@ class AsyncPaginate extends Component {
         return;
       }
     }
+
+    await this.setState((prevState) => ({
+      search,
+      optionsCache: {
+        ...prevState.optionsCache,
+        [search]: {
+          ...currentOptions,
+          isLoading: true,
+        },
+      },
+    }));
 
     let hasError;
     let additional;
@@ -219,6 +225,7 @@ class AsyncPaginate extends Component {
 
     if (hasError) {
       await this.setState((prevState) => ({
+        loading: false,
         optionsCache: {
           ...prevState.optionsCache,
           [search]: {
@@ -235,6 +242,7 @@ class AsyncPaginate extends Component {
       } = this.props;
 
       await this.setState((prevState) => ({
+        loading: false,
         optionsCache: {
           ...prevState.optionsCache,
           [search]: {
@@ -259,6 +267,7 @@ class AsyncPaginate extends Component {
     } = this.props;
 
     const {
+      loading,
       search,
       optionsCache,
       menuIsOpen,
@@ -276,7 +285,7 @@ class AsyncPaginate extends Component {
         onInputChange={this.onInputChange}
         onMenuScrollToBottom={this.handleScrolledToBottom}
         handleScrolledToBottom={this.handleScrolledToBottom}
-        isLoading={currentOptions.isLoading}
+        isLoading={loading || currentOptions.isLoading}
         isFirstLoad={currentOptions.isFirstLoad}
         options={currentOptions.options}
         components={{
